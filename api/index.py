@@ -10,19 +10,19 @@ def home():
 def about():
     return 'About'
 
-@app.route('/get-weather', methods=['POST'])
-def get_weather():
-    # Expecting a JSON payload with a key 'location'
+@app.route('/process_data', methods=['POST'])
+def process_data():
     data = request.get_json()
-    location = data.get('location')
 
-    if not location:
-        return jsonify({"error": "Location is required"}), 400
+    # Extracting string and integer from the JSON data
+    string_data = data.get('str_data')
+    int_data = data.get('int_data')
 
-    # Example response, you would replace this with actual weather data retrieval logic
-    weather_data = {"location": location, "temperature": "23°C", "condition": "Sunny"}
-
-    return jsonify(weather_data)
+    # You can perform any operation here. For simplicity, just returning the data.
+    return jsonify({
+        "Received String": string_data,
+        "Received Integer": int_data
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)
